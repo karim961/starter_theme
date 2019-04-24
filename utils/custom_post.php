@@ -9,17 +9,19 @@
 //}
 
 
-function create_custom_post_type($slug_name, $plural_name = "", $supports = null)
+function create_custom_post_type($single, $plural_name = "", $slug = "", $supports = null, $args = null)
 {
 
-
-    $single = $slug_name;
-    $plural = "";
     if ($plural_name != "") {
         $plural = $plural_name;
     } else {
-        $plural = $slug_name . "s";
+        $plural = $single . "s";
     }
+
+    if ($slug == "") {
+        $slug = $single;
+    }
+
     $Csingle = ucfirst($single);
     $cplural = ucfirst($plural);
 
@@ -46,19 +48,21 @@ function create_custom_post_type($slug_name, $plural_name = "", $supports = null
         'not_found_in_trash' => __('No ' . $Csingle . ' found in Trash'),
         'parent_item_colon' => ''
     );
-    $args = array(
-        'labels' => $labels,
-        'public' => true,
-        'publicly_queryable' => true,
-        'query_var' => true,
-        'show_ui' => true,
-        'rewrite' => array('slug' => $single, 'with_front' => true),
-        'capability_type' => 'post',
-        'hierarchical' => false,
-        'menu_position' => 5,
-        'supports' => $supports,
-        'taxonomies' => array('group'),
-        'has_archive' => true
-    );
+    if ($args == null) {
+        $args = array(
+            'labels' => $labels,
+            'public' => true,
+            'publicly_queryable' => true,
+            'query_var' => true,
+            'show_ui' => true,
+            'rewrite' => array('slug' => $slug, 'with_front' => true),
+            'capability_type' => 'post',
+            'hierarchical' => false,
+            'menu_position' => 5,
+            'supports' => $supports,
+            'taxonomies' => array('group'),
+            'has_archive' => true
+        );
+    }
     register_post_type($single, $args);
 }
