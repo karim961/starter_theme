@@ -1,0 +1,221 @@
+@charset "UTF-8";
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.overflow_hidden {
+    overflow: hidden;
+}
+
+.no_padding {
+    padding: 0;
+}
+
+.mo_margin {
+    margin: 0;
+}
+
+.inline_block {
+    display: inline-block;
+}
+
+.block {
+    display: block;
+}
+
+.padding_5 {
+    padding: 5px;
+}
+
+.padding_vertical_5 {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.padding_bottom_5 {
+    padding-bottom: 5px;
+}
+
+.padding_top_5 {
+    padding-top: 5px;
+}
+
+.padding_vertical_10 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.padding_bottom_10 {
+    padding-bottom: 10px;
+}
+
+.padding_top_10 {
+    padding-top: 10px;
+}
+
+
+.padding_vertical_20 {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.padding_bottom_20 {
+    padding-bottom: 20px;
+}
+
+.padding_top_20 {
+    padding-top: 20px;
+}
+
+.padding_vertical_30 {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.padding_bottom_30 {
+    padding-bottom: 30px;
+}
+
+.padding_top_30 {
+    padding-top: 30px;
+}
+
+.padding_vertical_40 {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.padding_bottom_40 {
+    padding-bottom: 40px;
+}
+
+.padding_top_40 {
+    padding-top: 40px;
+}
+
+.padding_vertical_50 {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.padding_bottom_50 {
+    padding-bottom: 50px;
+}
+
+.padding_top_50 {
+    padding-top: 50px;
+}
+
+.padding_vertical_100 {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.padding_bottom_100 {
+    padding-bottom: 100px;
+}
+
+.padding_top_100 {
+    padding-top: 100px;
+}
+
+.padding_horizontal_20 {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.margin_bottom_30 {
+    margin-bottom: 30px;
+}
+
+.margin_top_0 {
+    margin-top: 0;
+}
+
+.margin_spaceRight_20 {
+    margin-right: 20px;
+}
+
+.margin_spaceLeft_10 {
+    margin-left: 10px;
+}
+
+
+.cL {
+    clear: both;
+}
+
+.pt5e {
+    padding-top: 5em;
+}
+
+.transition-03 {
+    transition: 0.3s;
+}
+
+
+.transition-01 {
+    transition: 0.1s;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.border_left {
+    border-left: solid;
+}
+
+.border_right {
+    border-right: solid;
+}
+
+.border_bottom {
+    border-bottom: solid;
+}
+
+.border_top {
+    border-top: solid;
+}
+
+.border {
+    border: solid;
+}
+
+.border_thin {
+    border-width: thin;
+}
+
+.border_medium {
+    border-width: 3px;
+}
+
+.border_thick {
+    border-width: 15px;
+}
+
+.margin_top20 {
+    margin-top: 20px;
+}
+
+.row-centered {
+    text-align: center;
+}
+
+.col-centered {
+    display: inline-block;
+    float: none;
+    /* reset the text-align */
+    text-align: left;
+    /* inline-block space fix */
+    text-align: center;
+}
