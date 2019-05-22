@@ -9,6 +9,46 @@ require_once "wp_bootstrap_navwalker.php";
 class utils
 {
 
+    // (thumbnail, medium, large, full or custom size)
+//    public $imgs;
+    public $imgSizes = array(
+        'thumbnail' => 'thumbnail',
+        'medium' => 'medium',
+        'large' => 'large',
+        'full' => 'full',
+    );
+
+
+    public function __construct()
+    {
+
+//        $this->imgs=new stdClass();
+//        $this->imgs->bar="test";
+        $this->imgSizes = (object)$this->imgSizes;
+        $this->addSupport('title-tag')
+//            ->addSupport('custom-logo')
+            ->addSupport('post-thumbnails')
+//            ->addSupport('customize-selective-refresh-widgets')
+            ->addSupport('html5', [
+                'search-form',
+//                'comment-form',
+//                'comment-list',
+//                'gallery',
+//                'caption'
+            ])
+            ->addScript("jquery")
+            ->add_device_class()
+            ->add_acf()
+            ->footer_admin();
+
+        global $content_width;
+        if (!isset($content_width)) {
+            $content_width = 1920;
+        }
+    }
+
+
+
     public function add_post_type($slug, $plural = "", $support = null)
     {
         add_action('init', function () use ($slug, $plural, $support) {
@@ -120,30 +160,14 @@ class utils
         add_action('wp_enqueue_scripts', function () use ($function) {
             $function();
         });
+        return $this;
     }
 
-
-    public function __construct()
+    private function footer_admin()
     {
-        $this->addSupport('title-tag')
-//            ->addSupport('custom-logo')
-            ->addSupport('post-thumbnails')
-//            ->addSupport('customize-selective-refresh-widgets')
-            ->addSupport('html5', [
-                'search-form',
-//                'comment-form',
-//                'comment-list',
-//                'gallery',
-//                'caption'
-            ])
-            ->addScript("jquery")
-            ->add_device_class()
-            ->add_acf();
-
-        global $content_width;
-        if (!isset($content_width)) {
-            $content_width = 1920;
-        }
+        add_filter('admin_footer_text', function () {
+            echo '<span id="footer-thankyou">Developed by <a href="http://karimabbas.info/" target="_blank">Karim Abbas</a></span>';
+        });
     }
 
     public function addSupport($feature, $options = null)
@@ -179,6 +203,10 @@ class utils
         $this->actionAfterSetup(function () use ($name, $width, $height, $crop) {
             add_image_size($name, $width, $height, $crop);
         });
+
+
+        $this->imgSizes = (object) array_merge( (array)$this->imgSizes, array( $name => $name ) );
+
         return $this;
     }
 
@@ -187,6 +215,7 @@ class utils
         $this->actionAfterSetup(function () use ($name) {
             remove_image_size($name);
         });
+        unset($this->imgSizes->$name);
         return $this;
     }
 
