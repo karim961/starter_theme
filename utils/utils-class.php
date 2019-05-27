@@ -48,7 +48,6 @@ class utils
     }
 
 
-
     public function add_post_type($slug, $plural = "", $support = null)
     {
         add_action('init', function () use ($slug, $plural, $support) {
@@ -166,7 +165,7 @@ class utils
     private function footer_admin()
     {
         add_filter('admin_footer_text', function () {
-            echo '<span id="footer-thankyou">Developed by <a href="http://karimabbas.info/" target="_blank">Karim Abbas</a></span>';
+            echo '<span id="footer-thankyou">Developed by <a href="http://thecouncilforvisualaffairs.com/" target="_blank">The Council</a></span>';
         });
     }
 
@@ -205,7 +204,7 @@ class utils
         });
 
 
-        $this->imgSizes = (object) array_merge( (array)$this->imgSizes, array( $name => $name ) );
+        $this->imgSizes = (object)array_merge((array)$this->imgSizes, array($name => $name));
 
         return $this;
     }
@@ -286,6 +285,20 @@ class utils
         });
         return $this;
     }
+
+    public function add_user_role($slug, $name, $capabilities)
+    {
+// TODO: to add user roles
+    }
+
+    public function migrate_site($url){
+
+        update_option('siteurl', $url );
+        update_option('home', $url );
+
+        return $this;
+    }
+
 
 //////////////////////////////////////////////////FILTERS//////////////////////////////////////////////
     public function filter_title_separator($sep)

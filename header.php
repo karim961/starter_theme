@@ -3,6 +3,17 @@
 <head>
     <meta charset="<?php bloginfo('charset'); ?>"/>
     <meta name="viewport" content="width=device-width"/>
+	    <meta name="description" content="<?php if (is_single()) {
+        single_post_title('', true);
+    } else {
+        bloginfo('name');
+        echo " - ";
+        bloginfo('description');
+    }
+    ?>"/>
+    <meta name="keywords"
+          content="">
+    <meta name="author" content="karim abbas">
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
