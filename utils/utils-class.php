@@ -3,6 +3,7 @@
 
 require_once "custom_category.php";
 require_once "renaming_post.php";
+require_once "custom_post.php";
 require_once "wp_bootstrap_navwalker.php";
 
 
@@ -48,18 +49,18 @@ class utils
     }
 
 
-    public function add_post_type($slug, $plural = "", $support = null)
+    public function add_post_type($single, $plural = "", $slug = '', $support = null, $args = null)
     {
-        add_action('init', function () use ($slug, $plural, $support) {
-            create_custom_post_type($slug, $plural, $support);
+        add_action('init', function () use ($slug, $plural, $single, $support, $args) {
+            create_custom_post_type($single, $plural, $slug, $support, $args);
         });
         return $this;
     }
 
-    public function add_taxonomy_type($slug, $plural = "", $post_types = array("post"))
+    public function add_taxonomy_type($slug, $plural = "", $post_types = array("post"),$hierarchical)
     {
-        add_action('init', function () use ($slug, $plural, $post_types) {
-            create_category_taxonomies($slug, $plural, $post_types);
+        add_action('init', function () use ($slug, $plural, $post_types,$hierarchical) {
+            create_category_taxonomies($slug, $plural, $post_types,$hierarchical);
         });
         return $this;
     }
@@ -73,6 +74,26 @@ class utils
         add_action('init', function () use ($singular, $plural) {
             change_post_object($singular, $plural);
         });
+        return $this;
+    }
+
+
+    public function add_sidebar($name,$slug,$desc=null) {
+
+        add_action( 'widgets_init', function () use ($name, $slug,$desc) {
+            register_sidebar(
+                array(
+                    'name' => __($name, 'your-theme-domain'),
+                    'id' => $slug,
+                    'description' => __($desc, 'your-theme-domain'),
+                    'before_widget' => '<div class="widget-content">',
+                    'after_widget' => "</div>",
+                    'before_title' => '<h3 class="widget-title">',
+                    'after_title' => '</h3>',
+                )
+            );
+        });
+
         return $this;
     }
 
@@ -162,6 +183,8 @@ class utils
         return $this;
     }
 
+
+
     private function footer_admin()
     {
         add_filter('admin_footer_text', function () {
@@ -226,6 +249,19 @@ class utils
         return $this;
     }
 
+    public function addLanguageStyle($handle, $language, $src = '', $deps = array(), $ver = false, $media = 'all')
+    {
+        $this->actionEnqueueScripts(function () use ($handle, $language, $src, $deps, $ver, $media) {
+            if (function_exists('wpm_get_language')) {
+                if (wpm_get_language() == $language) {
+                    wp_enqueue_style($handle, $src, $deps, $ver, $media);
+                }
+            }
+        });
+        return $this;
+    }
+
+
     public function addScript($handle, $src = '', $deps = array(), $ver = false, $in_footer = false)
     {
         $this->actionEnqueueScripts(function () use ($handle, $src, $deps, $ver, $in_footer) {
@@ -288,13 +324,39 @@ class utils
 
     public function add_user_role($slug, $name, $capabilities)
     {
-// TODO: to add user roles
+
+        $result = add_role($slug, __($name), $capabilities);
+        return $this;
     }
 
-    public function migrate_site($url){
+    public function add_capabilities_to_role($role, array $capabilities)
+    {
+        $role_obj = get_role($role);
+        foreach ($capabilities as $capability) {
+            if (!$role_obj->has_cap($capability)) {
+                $role_obj->add_cap($capability);
+            }
+        }
+        return $this;
+    }
 
-        update_option('siteurl', $url );
-        update_option('home', $url );
+    public function remove_capabilities_from_role($role, array $capabilities)
+    {
+        $role_obj = get_role($role);
+        foreach ($capabilities as $capability) {
+            if ($role_obj->has_cap($capability)) {
+                $role_obj->remove_cap($capability);
+            }
+        }
+        return $this;
+    }
+
+
+    public function migrate_site($url)
+    {
+
+        update_option('siteurl', $url);
+        update_option('home', $url);
 
         return $this;
     }
@@ -306,7 +368,24 @@ class utils
         add_filter('document_title_separator', function () use ($sep) {
             return $sep;
         });
+
+
         return $this;
     }
+
+    public function filter_change_mail_sender($name, $email)
+    {
+
+        add_filter('wp_mail_from_name', function () use ($name) {
+            return $name;
+        });
+
+        add_filter('wp_mail_from', function () use ($email) {
+            return $email;
+        });
+
+        return $this;
+    }
+
 
 }
