@@ -3,15 +3,26 @@
 <head>
     <meta charset="<?php bloginfo('charset'); ?>"/>
     <meta name="viewport" content="width=device-width"/>
+	    <meta name="description" content="<?php if (is_single()) {
+        single_post_title('', true);
+    } else {
+        bloginfo('name');
+        echo " - ";
+        bloginfo('description');
+    }
+    ?>"/>
+    <meta name="keywords"
+          content="">
+    <meta name="author" content="karim abbas">
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
 <div id="wrapper" class="hfeed">
-    <header id="header" role="banner">
-        <div class="container-fluid head relative padding_top_30">
+    <header id="header" role="banner" class="absolute">
+        <div class="container-fluid head relative pt-40">
 
             <div class="row">
-                <div class="col text-center">
+                <div class="col-md-2 col-12 text-md-right text-center">
                     <div class="logo">
                         <a href="<?php echo esc_url(home_url('/')); ?>">
                             <?php
@@ -68,4 +79,4 @@
         </div>
 
     </header>
-    <div id="container">
+    <div id="container" class="container-fluid">

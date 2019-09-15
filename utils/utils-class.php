@@ -288,7 +288,15 @@ class utils
 
     public function add_user_role($slug, $name, $capabilities)
     {
+// TODO: to add user roles
+    }
 
+    public function migrate_site($url){
+
+        update_option('siteurl', $url );
+        update_option('home', $url );
+
+        return $this;
     }
 
 
