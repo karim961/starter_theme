@@ -63,8 +63,3 @@ function change_post_object($slug_name, $plural_name = "") {
     $labels->menu_name = $cplural;
     $labels->name_admin_bar = $cplural;
 }
-
-
-
-
-?>

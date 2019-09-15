@@ -58,6 +58,18 @@
     padding-top: 10px;
 }
 
+.padding_vertical_15 {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.padding_bottom_15 {
+    padding-bottom: 15px;
+}
+
+.padding_top_15 {
+    padding-top: 15px;
+}
 
 .padding_vertical_20 {
     padding-top: 20px;
